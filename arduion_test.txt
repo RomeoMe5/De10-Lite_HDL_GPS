@@ -1,0 +1,30 @@
+// Подключение провода на вывод 5V - Arduino принимает данные
+// Отключение провода на вывод GND  - Arduino передает данные
+
+int uartModePin = 13;
+int uartMode = 0;
+int data = 0;
+
+void setup() {
+  pinMode(uartModePin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  uartMode = digitalRead(uartModePin);
+  if(uartMode == HIGH)
+  {
+    Serial.println("Input Mode");
+    if(Serial.available() > 0)
+    {
+      data = Serial.read();
+      Serial.print("get data"); 
+	  Serial.print(data);
+    }
+  }
+  else
+  {
+    Serial.println("$GPGLL,3723.2475,N,12158.3416,W,161229.487,A*2C");
+    delay(1000);
+  }
+}
